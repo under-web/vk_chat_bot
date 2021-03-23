@@ -3,7 +3,7 @@ from vk_api import VkUpload
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 
-main_token = '3cb68b78c49c8a25fe46ac934110add0759710e13a49053a493a7bff3863da70ba26dfccd627aabe1bc26'
+main_token = 'your token'
 
 keyboard = VkKeyboard(one_time=True)
 keyboard.add_button('Да, являюсь', color=VkKeyboardColor.SECONDARY)
