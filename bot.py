@@ -1,9 +1,10 @@
 import vk_api
+import time
 from vk_api import VkUpload
 from vk_api.longpoll import VkLongPoll, VkEventType
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
 
-main_token = 'your token'
+main_token = '3cb68b78c49c8a25fe46ac934110add0759710e13a49053a493a7bff3863da70ba26dfccd627aabe1bc26'
 
 keyboard = VkKeyboard(one_time=True)
 keyboard.add_button('Да, являюсь', color=VkKeyboardColor.SECONDARY)
@@ -36,13 +37,14 @@ keyboard7.add_button('Я из другого города', color=VkKeyboardColo
 vk_session = vk_api.VkApi(token=main_token)
 session_api = vk_session.get_api()
 longpoll = VkLongPoll(vk_session)
-
-image = 'money.jpg'
-upload = VkUpload(vk_session)
-attachments = []
-upload_image = upload.photo_messages(photos=image)[0]
-attachments.append('photo{}_{}'.format(upload_image['owner_id'], upload_image['id']))
-
+try:
+    image = 'money.jpg'
+    upload = VkUpload(vk_session)
+    attachments = []
+    upload_image = upload.photo_messages(photos=image)[0]
+    attachments.append('photo{}_{}'.format(upload_image['owner_id'], upload_image['id']))
+except vk_api.exceptions.ApiError as e:
+    print(e)
 
 def sender_out(id, text):
     vk_session.method('messages.send', {'user_id': id,
@@ -162,3 +164,4 @@ while True:
                         sender_out(id, 'Я вас не понял, введите корректные данные')
     except Exception as e:
         print(e)
+        time.sleep(5)
